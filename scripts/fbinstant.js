@@ -1,4 +1,5 @@
-document.writeln("<script type='text/javascript' src='https://connect.facebook.net/en_US/fbinstant.7.1.js'></script>");
+document.writeln("<script type='text/javascript' src='https://connect.facebook.net/en_US/fbinstant.6.3.js'></script>");
+
 document.writeln("<script type='text/javascript' src='scripts/ads.js'></script>");
 document.writeln("<script type='text/javascript' src='scripts/leaderboard.js'></script>");
 
@@ -30,27 +31,4 @@ document.writeln("<script type='text/javascript' src='scripts/leaderboard.js'></
         console.log(FBInstant.context.getID());
         // 1234567890
       });
-  }
-  function setPlayerData(key, data) {
-    var data_object = {};
-    data_object[key] = data;
-
-    FBInstant.player.setDataAsync(data_object)
-        .then(function() {})
-        .catch(function(error) {});
-  }
-
-  function getPlayerData(key, callback) {
-    FBInstant.player.getDataAsync([key])
-        .then(function(data) {
-            if (data !== undefined && data[key] !== undefined) {
-                callback(data[key]);
-            }
-            else {
-                callback();
-            }
-        })
-        .catch(function(error) {
-              callback();
-        });
   }

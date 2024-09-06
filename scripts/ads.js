@@ -1,12 +1,12 @@
 //interstitial
   var preloadedInterstitial = null;
   var interstitialReady = false;
-  var idInterstitial= '158529637039975_158531137039825';
-  var idInterstitialLotDay= '158529637039975_158531137039825';
+  var idInterstitial= '1248338752323018_1248350082321885';
+  var idInterstitialLotDay= '1248338752323018_1248350082321885';
 
   function loadFullscreen(){
     interstitialReady = false;
-    FBInstant.getInterstitialAdAsync(idInterstitial,
+    FBInstant.getInterstitialAdAsync(idInterstitial, 
     ).then(function(interstitial) {
       // Load the Ad asynchronously
       preloadedInterstitial = interstitial;
@@ -15,15 +15,15 @@
       interstitialReady = true;
       console.log('Interstitial preloaded')
     }).catch(function(err){
-//      preloadedInterstitial = null;
+      preloadedInterstitial = null;
       console.error('Interstitial failed to preload: ' + err.message);
-//      console.error('Try to load fullscreen LotDay');
-//      loadFullscreenLotDay();
+      console.error('Try to load fullscreen LotDay');
+      loadFullscreenLotDay();
     });
   }
 
   function loadFullscreenLotDay(){
-  	FBInstant.getInterstitialAdAsync(idInterstitialLotDay,
+  	FBInstant.getInterstitialAdAsync(idInterstitialLotDay, 
     ).then(function(interstitial) {
       preloadedInterstitial = interstitial;
       return preloadedInterstitial.loadAsync();
@@ -46,8 +46,8 @@
       preloadedInterstitial.showAsync()
       .then(function() {
         // Perform post-ad success operation
-        console.log('Interstitial ad finished successfully');
-        preloadedInterstitial = null;
+        console.log('Interstitial ad finished successfully');  
+        preloadedInterstitial = null;     
         loadFullscreen();
         ondone(true);
       })
@@ -56,19 +56,14 @@
         ondone(false);
       });
     }
-    else if(preloadedInterstitial==null) {
+    else if(preloadedInterstitial==null) 
       loadFullscreen();
-      ondone(false);
-    }
-    else {
-        ondone(false);
-    }
   }
 //video
   var preloadedRewardedVideo = null;
   var videorewardReady = false;
-  var idVideoreward= '158529637039975_158531213706484';
-  var idVideorewardLotDay= '158529637039975_158531213706484';
+  var idVideoreward= '1248338752323018_1248350215655205';
+  var idVideorewardLotDay= '1248338752323018_1248350215655205';
 
   function loadVideoReward(){
     videorewardReady = false;
@@ -82,8 +77,8 @@
       videorewardReady = true;
     }).catch(function(err){
       console.error('Rewarded video failed to preload: ' + err.message);
-//      console.error('Try to load video LotDay');
-//      loadVideoRewardLotday();
+      console.error('Try to load video LotDay');
+      loadVideoRewardLotday();
     });
   }
 
@@ -112,24 +107,12 @@
       // Perform post-ad success operation
       console.log('Rewarded video watched successfully');
       callback(true);
-      loadVideoReward();
+      loadVideoReward();        
     })
     .catch(function(e) {
       console.error(e.message);
       callback(false);
       loadVideoReward();
     });
-
+    
   }
-
-var bannerId = '158529637039975_158531007039838';
-function showBanner() {
-  FBInstant.loadBannerAdAsync(bannerId)
-  .then(() => {
-    console.log('success');
-  });
-}
-
-function hideBanner() {
-  FBInstant.hideBannerAdAsync();
-}
