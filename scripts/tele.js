@@ -2,7 +2,7 @@ var tonConnectUI
 
 window.onload = function(){
     tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json'
+        manifestUrl: 'https://ecraftagency.github.io/tonconnect-manifest.json'
     });
 }
 
