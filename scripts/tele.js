@@ -5,30 +5,29 @@ window.onload = function(){
     WalletSvc.initEvent()
 }
 
-async function connectOpenFort() {
-    resp = await fetch("https://api.doschain.com/game/config");
-    payload = await resp.json()
-    return evt(JSON.stringify(payload))
-}
-
 function WalletService() {
     this.tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
         manifestUrl: 'https://ecraftagency.github.io/tonconnect-manifest.json'
     });
 }
 WalletService.prototype.initEvent = function() {
-    window.addEventListener('ton-connect-ui-connection-completed', (event) => {
-        console.log('wallet connected', event);
+    const unsubscribe = this.tonConnectUI.onStatusChange(
+        wallet => {
+            if (wallet === undefined || wallet == null) {
+                return
+            }
+            Web3Events.onWalletConnected(JSON.stringify(wallet));
+        }
+    );
+    window.addEventListener('connection-completed', (event) => {
         Web3Events.onWalletConnected(JSON.stringify(event));
     });
 
     window.addEventListener('ton-connect-ui-connection-started', (event) => {
-            console.log('wallet connected', event);
             Web3Events.onWalletConnectStarted(JSON.stringify(event));
         });
 
     window.addEventListener('ton-connect-ui-disconnection', (event) => {
-        console.log('wallet disconnected', event);
         Web3Events.onWalletDisconnected(JSON.stringify(event));
     });
 }
@@ -46,4 +45,10 @@ WalletService.prototype.wallet = function() {
 
 WalletService.prototype.isConnected = function() {
     return this.tonConnectUI.connected
+}
+
+WalletService.prototype.fetch = async function() {
+    let resp = await fetch("https://api.doschain.com/game/config");
+    let payload = await resp.json()
+    return payload
 }
