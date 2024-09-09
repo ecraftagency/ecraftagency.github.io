@@ -1,6 +1,6 @@
 var WalletSvc
-var url = "http://localhost:9091/triplematch"
-//var url = "https://test-api.doschain.com/triplematch"
+//var url = "http://localhost:9091/triplematch"
+var url = "https://test-api.doschain.com/triplematch"
 
 window.onload = function(){
     WalletSvc = new WalletService()
