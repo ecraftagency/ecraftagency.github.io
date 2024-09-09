@@ -115,11 +115,14 @@ window.getPlayerData = async function (key, callback) {
 
 window.setPlayerData = async function(key, data) {
     try {
+        const sig = toValhalla(data)
+        console.log("[sig]" + sig)
         const resp = await fetch(url + "/set_play_data", {
             method: "POST",
             body: data,
             headers: {
                 "X-Authorization": WalletSvc.getTeleUserData(),
+                "Sig": sig,
             },
         });
         const json = await resp.json()
